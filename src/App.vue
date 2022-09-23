@@ -45,9 +45,9 @@ async logout(){
     //this method allows to log in the system using Google provider
     async login(){ 
       try { 
-        const { user, session, error } = await supabase.auth.signIn({ 
-          provider: 'google', 
-        }); 
+        const { user, session, error } = await supabase.auth.signIn({
+  provider: 'github',
+})
         if (error) throw error; 
       } catch (error) { 
         alert(error.error_description || error.message); 
