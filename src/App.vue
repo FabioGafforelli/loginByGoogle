@@ -14,48 +14,50 @@
   <button @click="logout()">Sign Out</button><br> 
   <label id="status">You are not yet logged !  </label>
   </template>
+   
+   <script>
   
-  <script>
-  
-  const SUPABASE_URL = 'https://igjsyrodxhfbwtoaoflv.supabase.co'
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnanN5cm9keGhmYnd0b2FvZmx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjMzMzczMjIsImV4cCI6MTk3ODkxMzMyMn0.UD4tQ_XICjhtKUnnCNC09i7aoyynyrq2t8RdRvgIESs'
-  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
-  
-  supabase.auth.onAuthStateChange((event, session) => { 
-  if(session==null){ 
-    document.getElementById('status').innerHTML='You are not logged !!!'; 
-  } else{ 
-    //alert('session value: ' + JSON.stringify(session)) 
-    document.getElementById('status').innerHTML='You are logged with the email: ' + session.user.email; 
-  } 
+    const SUPABASE_URL = 'https://igjsyrodxhfbwtoaoflv.supabase.co'
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnanN5cm9keGhmYnd0b2FvZmx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjMzMzczMjIsImV4cCI6MTk3ODkxMzMyMn0.UD4tQ_XICjhtKUnnCNC09i7aoyynyrq2t8RdRvgIESs'
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+    
+    supabase.auth.onAuthStateChange((event, session) => {
+  if(session==null){
+    document.getElementById('status').innerHTML='You are not logged !!!';
+  } else{
+    //alert('session value: ' + JSON.stringify(session))
+    document.getElementById('status').innerHTML='You are logged with the email: ' + session.user.email;
+  }
 })
-  
+    
   export default {
     methods: {  
-     //this method allows to release the connexion with the Google account 
-async logout(){ 
-      try { 
-        const { user, session, error } = await supabase.auth.signOut(); 
-        if (error) throw error; 
-        document.getElementById('status').innerHTML='You are disconnected !' 
-      } catch (error) { 
-        alert(error.error_description || error.message); 
-      }  
-    }, 
-    //this method allows to log in the system using Google provider
-    async login(){ 
-      try { 
-        const { user, session, error } = await supabase.auth.signIn({
-  provider: 'github',
-})
-        if (error) throw error; 
-      } catch (error) { 
-        alert(error.error_description || error.message); 
-      }  
-    }
+      //this method allows a new user to sign up the system. Once done, the user receives an email
+      //asking for account validation. Once the validation made the user is added to the system
+      async logout(){
+        try {
+          const { user, session, error } = await supabase.auth.signOut();
+          if (error) throw error;
+          document.getElementById('status').innerHTML='You are disconnected !'
+        } catch (error) {
+          alert(error.error_description || error.message);
+        } 
+      },
+      //this method allows the already registred user to log in the system.
+      async login(){
+        try {
+          const { user, session, error } = await supabase.auth.signIn({
+            provider:'github',
+          });
+          if (error) throw error;
+          document.getElementById('status').innerHTML='You are now logged !'
+        } catch (error) {
+          alert(error.error_description || error.message);
+        } 
+      }
+    }  
   }
-}
-</script>
+  </script>
   
   <style>
   @import './assets/base.css';
