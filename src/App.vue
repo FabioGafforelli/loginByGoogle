@@ -23,13 +23,10 @@
       <label id="status">You are not yet logged !  </label> 
   </template>
   
-  
   <script>
-  
   const SUPABASE_URL = 'https://igjsyrodxhfbwtoaoflv.supabase.co'
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnanN5cm9keGhmYnd0b2FvZmx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjMzMzczMjIsImV4cCI6MTk3ODkxMzMyMn0.UD4tQ_XICjhtKUnnCNC09i7aoyynyrq2t8RdRvgIESs'
   const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
-  
   export default {
     methods: {  
     //this method allows to release the connexion with the Google account 
