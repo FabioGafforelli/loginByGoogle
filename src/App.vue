@@ -6,6 +6,7 @@
   
   <template>    
   <h1>{{ msg }}</h1> 
+  <div><SignIn msg="Bienvenu utilisateur, merci de te connecter !" /></div>
       <img alt="Logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
   <p> 
     Merci de vous connecter avec votre compte google : 
