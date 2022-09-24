@@ -8,10 +8,18 @@
   <h1>{{ msg }}</h1> 
       <img alt="Logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
   <p> 
-    Please login if you have an account or register : 
+    Merci de vous connecter avec votre compte google : 
   </p> 
   <button @click="login()">Sign In</button><br> 
   <button @click="logout()">Sign Out</button><br> 
+  <label id="status">You are not yet logged !  </label>
+  <h1>{{ msg }}</h1> 
+      <img alt="Logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <p> 
+    Merci de vous connecter avec votre compte github : 
+  </p> 
+  <button @click="login1()">Sign In</button><br> 
+  <button @click="logout1()">Sign Out</button><br> 
   <label id="status">You are not yet logged !  </label>
   </template>
   
@@ -44,6 +52,29 @@ export default {
     },
     //this method allows the already registred user to log in the system.
     async login(){
+      try {
+        const { user, session, error } = await supabase.auth.signIn({
+          provider:'google',
+        });
+        if (error) throw error;
+        document.getElementById('status').innerHTML='You are now logged !'
+      } catch (error) {
+        alert(error.error_description || error.message);
+      } 
+    },
+    //this method allows a new user to sign up the system. Once done, the user receives an email
+    //asking for account validation. Once the validation made the user is added to the system
+    async logout1(){
+      try {
+        const { user, session, error } = await supabase.auth.signOut();
+        if (error) throw error;
+        document.getElementById('status').innerHTML='You are disconnected !'
+      } catch (error) {
+        alert(error.error_description || error.message);
+      } 
+    },
+    //this method allows the already registred user to log in the system.
+    async login1(){
       try {
         const { user, session, error } = await supabase.auth.signIn({
           provider:'github',
